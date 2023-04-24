@@ -5,6 +5,9 @@ const database = require("./container/database.js");
 const app = express();
 const port = 9000;
 
+app.use("/", (req, res) => {
+  res.json({ message: "Hello world" });
+});
 storage(app);
 database();
 
