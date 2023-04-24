@@ -1,21 +1,12 @@
 const express = require("express");
-const token = require("./routes/token.js");
-const admin = require("./routes/admin.js");
+const storage = require("./container/storage.js");
+const database = require("./container/database.js");
 
 const app = express();
 const port = 9000;
 
-app.use("/", (req, res) => {
-  res.json({ message: "Hello world" });
-});
-
-app.use("/hype", (req, res) => {
-  res.json({ message: "Hi" });
-});
-
-app.use("/token", token);
-
-app.use("/admin", admin);
+storage(app);
+database();
 
 app.listen(9000, () => {
   console.log(`port running ${port}`);
