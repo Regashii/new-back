@@ -13,7 +13,10 @@ router.post("/", async (req, res) => {
       password: password,
     });
     if (check) {
-      const user = { details: check };
+      const user = {
+        username: check.username,
+        password: check.password,
+      };
       const accessToken = generateAccessToken(user);
       res.json({ accessToken: accessToken });
     } else {
@@ -26,7 +29,7 @@ router.post("/", async (req, res) => {
 
 function generateAccessToken(user) {
   return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "30s",
+    expiresIn: "30sec",
   });
 }
 
