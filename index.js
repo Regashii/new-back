@@ -9,6 +9,10 @@ app.use("/", (req, res) => {
   res.json({ message: "Hello world" });
 });
 
+app.use("/hype", (req, res) => {
+  res.json({ message: "Hi" });
+});
+
 app.use("/token", token);
 
 app.use("/admin", admin);
