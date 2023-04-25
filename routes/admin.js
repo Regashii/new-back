@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 
 router.get("/", authenticateToken, (req, res) => {
-  res.json(req.user);
+  res.json({ status: "ok" });
 });
 
 function authenticateToken(req, res, next) {
