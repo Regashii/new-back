@@ -3,6 +3,8 @@ const collection = require("./server");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const router = express.Router();
+let refresh = require("./conToken");
+let access = require("./user");
 
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
@@ -13,24 +15,28 @@ router.post("/", async (req, res) => {
       password: password,
     });
     if (check) {
-      const user = {
-        username: check.username,
-        password: check.password,
-      };
-      const accessToken = generateAccessToken(user);
-      res.json({ accessToken: accessToken });
+      access.getAccess(check.username, check.password);
+      const details = access.app;
+      const accessToken = generateAccessToken(details);
+      const refreshToken = generateRefreshToken(details);
+      refresh.ref(refreshToken);
+      res.json({ accessToken, refreshToken });
     } else {
-      res.json("notexist");
+      res.json("Who are you?!?!");
     }
   } catch (error) {
     res.json(error);
   }
 });
 
-function generateAccessToken(user) {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "30sec",
+function generateAccessToken(details) {
+  return jwt.sign(details, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "2min",
   });
+}
+
+function generateRefreshToken(details) {
+  return jwt.sign(details, process.env.REFRESH_TOKEN_SECRET);
 }
 
 module.exports = router;
