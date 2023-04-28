@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
 
     return res
       .cookie("access_token", accessToken, {
-        httpOnly: false,
+        httpOnly: true,
       })
       .status(200)
       .send({ username: check.username });
