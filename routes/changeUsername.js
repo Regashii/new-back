@@ -5,7 +5,7 @@ const router = express.Router();
 let change = "";
 
 router.post("/", async (req, res) => {
-  const password = req.body.password;
+  const password = req.body;
   const changingUser = await collection.findOne({ password: password });
   if (changingUser) {
     res.json("Correct");
