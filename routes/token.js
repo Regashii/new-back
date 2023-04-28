@@ -30,9 +30,7 @@ router.post("/", async (req, res) => {
 });
 
 function generateAccessToken(details) {
-  return jwt.sign(details, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "2min",
-  });
+  return jwt.sign(details, process.env.ACCESS_TOKEN_SECRET);
 }
 
 function generateRefreshToken(details) {
