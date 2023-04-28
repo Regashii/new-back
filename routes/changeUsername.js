@@ -16,6 +16,10 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.get("/", async (req, res) => {
+  res.json("hi");
+});
+
 // router.put("/", async (req, res) => {
 //   if (change === "") {
 //     res.json("sorry");
