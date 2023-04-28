@@ -22,7 +22,7 @@ router.put("/", async (req, res) => {
   } else {
     const newUsername = await collection.updateOne(
       { username: change },
-      { $set: { username: req.body.username } }
+      { $set: { username: req.body } }
     );
     res.json(newUsername);
     change = "";
