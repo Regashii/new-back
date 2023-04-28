@@ -1,7 +1,8 @@
 let app;
 
-function getAccess(u) {
+const getAccess = (u) => {
   this.app = user = { username: u };
-}
+};
 
-module.exports = { app, getAccess };
+export { getAccess };
+export { app };

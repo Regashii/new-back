@@ -1,8 +1,7 @@
-const express = require("express");
-const jwt = require("jsonwebtoken");
+import express from "express";
+import jwt from "jsonwebtoken";
 const router = express.Router();
-let refresh = require("./conToken.js");
-let access = require("./user.js");
+import refresh from "./conToken.js";
 
 router.post("/", (req, res) => {
   const refreshToken = req.body.token;
@@ -39,4 +38,4 @@ function generateAccessToken(details) {
 function generateRefreshToken(details) {
   return jwt.sign(details, process.env.REFRESH_TOKEN_SECRET);
 }
-module.exports = router;
+export default router;

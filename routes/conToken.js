@@ -4,4 +4,4 @@ function ref(arg) {
   this.refreshTokens.push(arg);
 }
 
-module.exports = { refreshTokens, ref };
+export default { refreshTokens, ref };

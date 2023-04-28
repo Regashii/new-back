@@ -1,17 +1,21 @@
-const express = require("express");
-const cors = require("cors");
-const token = require("../routes/token.js");
-const admin = require("../routes/admin.js");
-const logout = require("../routes/logout.js");
-const refresh = require("../routes/refresh.js");
-const user = require("../routes/changeUsername.js");
+import express from "express";
+import cors from "cors";
+import token from "../routes/token.js";
+import admin from "../routes/admin.js";
+import logout from "../routes/logout.js";
+import refresh from "../routes/refresh.js";
+import user from "../routes//changeUsername.js";
+import cookieParser from "cookie-parser";
+// import register from "../routes/register.js";
 
-module.exports = function (app) {
+export default function (app) {
   app.use(cors());
   app.use(express.json({ extended: false }));
+  app.use(cookieParser());
   app.use("/token", token);
   app.use("/admin", admin);
   app.use("/logout", logout);
   app.use("/refresh", refresh);
   app.use("/username", user);
-};
+  // app.use("/register", register);
+}

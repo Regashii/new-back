@@ -1,28 +1,39 @@
-const express = require("express");
-const collection = require("./server");
-require("dotenv").config();
-const jwt = require("jsonwebtoken");
+import express from "express";
+import collection from "./server.js";
+import dotenv from "dotenv";
+dotenv.config();
+import jwt from "jsonwebtoken";
 const router = express.Router();
-let refresh = require("./conToken");
-let access = require("./user");
+import bcrypt from "bcryptjs";
 
 router.post("/", async (req, res) => {
-  const { username, password } = req.body;
-
   try {
-    const check = await collection.findOne({
-      username: username,
-      password: password,
-    });
-    if (check) {
-      access.getAccess(check.username);
-      const details = access.app;
-      const accessToken = generateAccessToken(details);
-      const refreshToken = generateRefreshToken(details);
-      refresh.ref(refreshToken);
-      res.json({ accessToken, refreshToken });
+    const check = await collection.findOne({ username: req.body.username });
+
+    if (!check) {
+      return res.status(404).json("no user found");
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(
+      req.body.password,
+      check.password
+    );
+    if (!isPasswordCorrect) {
+      return res.status(400).json("wrong password");
     } else {
-      res.json("Who are you?!?!");
+      const details = {
+        id: check._id,
+        username: check.username,
+      };
+      const accessToken = generateAccessToken(details);
+      res
+        .cookie("access_token", accessToken, {
+          httpOnly: true,
+        })
+        .status(200)
+        .json({
+          username: check.username,
+        });
     }
   } catch (error) {
     res.json(error);
@@ -33,8 +44,8 @@ function generateAccessToken(details) {
   return jwt.sign(details, process.env.ACCESS_TOKEN_SECRET);
 }
 
-function generateRefreshToken(details) {
-  return jwt.sign(details, process.env.REFRESH_TOKEN_SECRET);
-}
+// function generateRefreshToken(details) {
+//   return jwt.sign(details, process.env.REFRESH_TOKEN_SECRET);
+// }
 
-module.exports = router;
+export default router;

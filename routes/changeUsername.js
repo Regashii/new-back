@@ -1,5 +1,6 @@
-const express = require("express");
-const { collection } = require("./server");
+import express from "express";
+import collection from "./server.js";
+
 const router = express.Router();
 
 let change = "";
@@ -9,7 +10,7 @@ router.post("/", async (req, res) => {
   const changingUser = await collection.findOne({ password: password });
   if (changingUser) {
     res.json("Correct");
-    // change.push(changingUser.username);
+
     change = changingUser.username;
   } else {
     res.json("Wrong password");
@@ -29,4 +30,4 @@ router.put("/", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
