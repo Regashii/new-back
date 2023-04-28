@@ -8,7 +8,7 @@ router.post("/", async (req, res) => {
   const password = req.body.password;
   const changingUser = await collection.findOne({ password: password });
   if (changingUser) {
-    res.json("nice");
+    res.json("Correct");
     // change.push(changingUser.username);
     change = changingUser.username;
   } else {
