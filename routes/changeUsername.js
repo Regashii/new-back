@@ -16,17 +16,17 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
-  if (change === "") {
-    res.json("sorry");
-  } else {
-    const newUsername = await collection.updateOne(
-      { username: change },
-      { $set: { username: req.body } }
-    );
-    res.json(newUsername);
-    change = "";
-  }
-});
+// router.put("/", async (req, res) => {
+//   if (change === "") {
+//     res.json("sorry");
+//   } else {
+//     const newUsername = await collection.updateOne(
+//       { username: change },
+//       { $set: { username: req.body } }
+//     );
+//     res.json(newUsername);
+//     change = "";
+//   }
+// });
 
 module.exports = router;
