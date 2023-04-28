@@ -20,21 +20,19 @@ router.post("/", async (req, res) => {
     );
     if (!isPasswordCorrect) {
       return res.status(400).json("wrong password");
-    } else {
-      const details = {
-        id: check._id,
-        username: check.username,
-      };
-      const accessToken = generateAccessToken(details);
-      res
-        .cookie("access_token", accessToken, {
-          httpOnly: true,
-        })
-        .status(200)
-        .json({
-          username: check.username,
-        });
     }
+    const details = {
+      id: check._id,
+      username: check.username,
+    };
+    const accessToken = generateAccessToken(details);
+
+    return res
+      .cookie("access_token", accessToken, {
+        httpOnly: false,
+      })
+      .status(200)
+      .send({ username: check.username });
   } catch (error) {
     res.json(error);
   }
