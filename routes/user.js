@@ -1,7 +1,7 @@
 let app;
 
-function getAccess(u, p) {
-  this.app = user = { username: u, password: p };
+function getAccess(u) {
+  this.app = user = { username: u };
 }
 
 module.exports = { app, getAccess };

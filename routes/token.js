@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
       password: password,
     });
     if (check) {
-      access.getAccess(check.username, check.password);
+      access.getAccess(check.username);
       const details = access.app;
       const accessToken = generateAccessToken(details);
       const refreshToken = generateRefreshToken(details);
