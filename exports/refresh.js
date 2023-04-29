@@ -1,7 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 const router = express.Router();
-import refresh from "./conToken.js";
+import refresh from "../exports/conToken.js";
 
 router.post("/", (req, res) => {
   const refreshToken = req.body.token;
