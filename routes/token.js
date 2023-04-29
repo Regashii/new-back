@@ -26,7 +26,6 @@ router.post("/", async (req, res) => {
       username: check.username,
     };
     const accessToken = generateAccessToken(details);
-    res.cookie('token', accessToken, )
 
     return res
       .cookie("access_token", accessToken, {
