@@ -3,8 +3,8 @@ import jwt from "jsonwebtoken";
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.clearCookie("access_token");
-  res.status(200).json("You log-out");
+  // res.clearCookie("access_token");
+  res.clearCookie("name").status(200).json("You log-out");
 });
 
 export default router;

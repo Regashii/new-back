@@ -9,7 +9,7 @@ import cookieParser from "cookie-parser";
 // import register from "../routes/register.js";
 
 export default function (app) {
-  app.use(cors({ origin: true, credentials: true }));
+  app.use(cors());
   app.use(express.json({ extended: false }));
   app.use(cookieParser());
   app.use("/login", login);
