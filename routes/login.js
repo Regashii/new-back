@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
     const check = await collection.findOne({ username: req.body.username });
 
     if (!check) {
-      return res.status(404).json("no user found");
+      return res.json("no user found");
     }
 
     const isPasswordCorrect = await bcrypt.compare(
@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
       check.password
     );
     if (!isPasswordCorrect) {
-      return res.status(400).json("wrong password");
+      return res.json("wrong password");
     }
     const details = {
       id: check._id,
