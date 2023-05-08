@@ -4,6 +4,7 @@ import login from "../routes/login.js";
 import admin from "../routes/admin.js";
 import logout from "../routes/logout.js";
 import user from "../routes//changeUsername.js";
+import pass from "../routes/changePassword.js";
 import cookieParser from "cookie-parser";
 // import register from "../routes/register.js";
 // import refresh from "../routes/refresh.js";
@@ -15,7 +16,8 @@ export default function (app) {
   app.use("/login", login);
   app.use("/admin", admin);
   app.use("/logout", logout);
-  // app.use("/refresh", refresh);
+  app.use("/password", pass);
   app.use("/username", user);
   // app.use("/register", register);
+  // app.use("/refresh", refresh);
 }
