@@ -3,10 +3,10 @@ import cors from "cors";
 import login from "../routes/login.js";
 import admin from "../routes/admin.js";
 import logout from "../routes/logout.js";
-// import refresh from "../routes/refresh.js";
 import user from "../routes//changeUsername.js";
 import cookieParser from "cookie-parser";
 // import register from "../routes/register.js";
+// import refresh from "../routes/refresh.js";
 
 export default function (app) {
   app.use(cors());
