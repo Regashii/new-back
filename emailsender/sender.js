@@ -3,7 +3,18 @@ import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 import multer from "multer";
-const upload = multer({ dest: "uploads/" });
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+import DatauriParser from "datauri/parser.js";
+import path from "path";
+import sharp from "sharp";
+import cloudinary from "cloudinary";
+cloudinary.config({
+  secure: true,
+  cloud_name: process.env.cloud_Name,
+  api_key: process.env.API_key,
+  api_secret: process.env.API_secret,
+});
 
 const router = express.Router();
 
@@ -444,17 +455,35 @@ function sendEmail2(gmail, image) {
   });
 }
 
-router.post("/", upload.array("image", 2), (req, res) => {
+const parser = new DatauriParser();
+
+router.post("/", upload.array("image", 2), async (req, res) => {
+  if (req.files === []) {
+    return res.status(400).send("No file were uploaded");
+  }
+  const linkArray = [];
+
+  for (let file of req.files) {
+    const data = await sharp(file.buffer).webp({ quality: 30 }).toBuffer();
+    const file64 = parser.format(
+      path.extname(file.originalname).toString(),
+      data
+    );
+    const result = await cloudinary.uploader.upload(file64.content);
+
+    linkArray.push(result.url);
+  }
+
   if (req.body.payment.toLowerCase() === "gcash") {
     const gmail = req.body.gmail;
-    const image = req.files[0].path;
-    const gcash = req.files[1].path;
+    const image = linkArray[0];
+    const gcash = linkArray[1];
     sendEmail(gmail, image, gcash)
       .then((response) => res.status(200).json(response.message))
       .catch((err) => res.status(500).json(err.message));
   } else if (req.body.payment.toLowerCase() === "cash on pickup") {
     const gmail = req.body.gmail;
-    const image = req.files[0].path;
+    const image = linkArray[0];
 
     sendEmail2(gmail, image)
       .then((response) => res.status(200).json(response.message))
