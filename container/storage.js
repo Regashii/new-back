@@ -7,6 +7,9 @@ import user from "../routes//changeUsername.js";
 import pass from "../routes/changePassword.js";
 import cookieParser from "cookie-parser";
 import sender from "../emailsender/sender.js";
+import otp from "../emailsender/otp.js";
+import verify from "../emailsender/otpVerify.js";
+import forgot from "../emailsender/otpChange.js";
 // import register from "../routes/register.js";
 // import refresh from "../routes/refresh.js";
 
@@ -14,12 +17,15 @@ export default function (app) {
   app.use(cors());
   app.use(express.json({ extended: false }));
   app.use(cookieParser());
-  app.use("/login", login);
-  app.use("/admin", admin);
-  app.use("/logout", logout);
-  app.use("/password", pass);
-  app.use("/username", user);
-  app.use("/sender", sender);
+  app.use("/api/login", login);
+  app.use("/api/admin", admin);
+  app.use("/api/logout", logout);
+  app.use("/api/password", pass);
+  app.use("/api/username", user);
+  app.use("/api/sender", sender);
+  app.use("/api/otp", otp);
+  app.use("/api/verify", verify);
+  app.use("/api/forgot", forgot);
   // app.use("/register", register);
   // app.use("/refresh", refresh);
 }
