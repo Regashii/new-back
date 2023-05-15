@@ -44,12 +44,14 @@ router.post("/", async (req, res) => {
     specialChars: false,
   });
   const gmail = process.env.email;
-  sendOTP(OTP);
+
   const otps = new Otp({ gmail: gmail, otp: OTP });
   const salt = await bcrypt.genSalt(10);
   otps.otp = await bcrypt.hash(otps.otp, salt);
   await otps.save();
-  return res.status(200).send(gmail);
+  sendOTP(OTP)
+    .then((response) => res.status(200).json(response.message))
+    .catch((err) => res.status(500).json(err.message));
 });
 
 export default router;
