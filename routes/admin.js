@@ -18,7 +18,6 @@ function authenticateToken(req, res, next) {
     req.user = user;
     next();
   });
-
 }
 
 export default router;

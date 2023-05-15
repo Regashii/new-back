@@ -26,15 +26,14 @@ router.post("/", async (req, res) => {
 
   const otpToken = generateOtpToken(details);
   res
-    .cookie("token", otpToken, {
+    .cookie("access_token", otpToken, {
       httpOnly: true,
-      expiresIn: "30sec",
     })
     .json("Success");
 });
 
 function generateOtpToken(details) {
-  return jwt.sign(details, process.env.otp_token, { expiresIn: "1min" });
+  return jwt.sign(details, process.env.otp_token, { expiresIn: "20min" });
 }
 
 export default router;
