@@ -49,7 +49,7 @@ router.post("/", async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   otps.otp = await bcrypt.hash(otps.otp, salt);
   await otps.save();
-  return res.status(200).send("Otp successfully send to your gmail");
+  return res.status(200).send(gmail);
 });
 
 export default router;
