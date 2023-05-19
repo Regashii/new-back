@@ -249,7 +249,7 @@ function sendEmail(gmail, image, gcash) {
   });
 }
 
-function sendEmail2(gmail, image) {
+function sendEmail2(gmail, image, price) {
   return new Promise((resolve, reject) => {
     let html = `
   <!DOCTYPE html>
@@ -395,6 +395,19 @@ function sendEmail2(gmail, image) {
           </td>
         </tr>
 
+
+        <tr>
+          <td style="padding: 15px 0 50px">
+            <table width="100%">
+              <tr>
+                <td style="text-align: center; padding: 15px">
+                  <p style="font-size: 20px; font-weight: bold">Total Price: ${price}</p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
         <tr>
           <td style="background-color: #26292b">
             <table width="100%">
@@ -483,9 +496,10 @@ router.post("/", upload.array("image", 2), async (req, res) => {
       .catch((err) => res.status(500).json(err.message));
   } else if (req.body.payment.toLowerCase() === "cash on pickup") {
     const gmail = req.body.gmail;
+    const price = req.body.price;
     const image = linkArray[0];
 
-    sendEmail2(gmail, image)
+    sendEmail2(gmail, image, price)
       .then((response) => res.status(200).json(response.message))
       .catch((err) => res.status(500).json(err.message));
   }
