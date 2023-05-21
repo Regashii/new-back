@@ -23,7 +23,7 @@ function sendDetails(username, password) {
       to: process.env.email,
       subject: "Reset Password",
       html: `<p>Your new password:</p>
-        <h2>Email: ${username}</h2>
+        <h2>Username: ${username}</h2>
         <h2>Password: ${password}</h2>
         `,
     };
