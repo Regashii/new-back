@@ -9,6 +9,7 @@ import sender from "../emailsender/sender.js";
 import otp from "../emailsender/otp.js";
 import verify from "../emailsender/otpVerify.js";
 import forgot from "../emailsender/otpChange.js";
+import limit from "../limit/limiting.js";
 // import register from "../routes/register.js";
 // import refresh from "../routes/refresh.js";
 
@@ -24,6 +25,7 @@ export default function (app) {
   app.use("/api/otp", otp);
   app.use("/api/verify", verify);
   app.use("/api/forgot", forgot);
+  app.use("/api/limit", limit);
   // app.use("/register", register);
   // app.use("/refresh", refresh);
 }
