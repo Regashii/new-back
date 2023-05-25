@@ -229,11 +229,13 @@ function sendEmail(gmail, image, gcash) {
         {
           filename: "final cake",
           path: image,
+          href: image,
           cid: "finishCake",
         },
         {
           filename: "Gcash",
           path: gcash,
+          href: gcash,
           cid: "payment",
         },
       ],
@@ -453,6 +455,7 @@ function sendEmail2(gmail, image, price) {
         {
           filename: "final cake",
           path: image,
+          href: image,
           cid: "finishCake",
         },
       ],
@@ -463,6 +466,7 @@ function sendEmail2(gmail, image, price) {
         console.log(err);
         return reject({ message: "An error has occured" });
       }
+
       return resolve({ message: "Email sucessfully sent" });
     });
   });
