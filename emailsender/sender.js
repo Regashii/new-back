@@ -125,7 +125,7 @@ function sendEmail(gmail, image, gcash) {
                         <table class="content">
                           <tr>
                             <td>
-                              <a href="#"
+                              <a href="${image}"
                                 ><img
                                   src="cid:finishCake"
                                   alt="finish cake"
@@ -170,7 +170,7 @@ function sendEmail(gmail, image, gcash) {
             <table width="100%">
               <tr>
                 <td style="text-align: center; padding: 15px">
-                  <a href="#"
+                  <a href="${gcash}"
                     ><img
                       src="cid:payment"
                       alt="gcash"
@@ -356,7 +356,7 @@ function sendEmail2(gmail, image, price) {
                         <table class="content">
                           <tr>
                             <td>
-                              <a href="#"
+                              <a href="${image}"
                                 ><img
                                   src="cid:finishCake"
                                   alt="finish cake"
@@ -574,7 +574,7 @@ function sendEmail3(gmail, image, bdo) {
                         <table class="content">
                           <tr>
                             <td>
-                              <a href="#"
+                              <a href="${image}"
                                 ><img
                                   src="cid:finishCake"
                                   alt="finish cake"
